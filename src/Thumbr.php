@@ -23,7 +23,7 @@ class Thumbr {
         
     }
     
-    private static function ValidateInputs($fileWithPath, $width, $height) {
+    private static function ValidateInputs($fileWithPath, $newFileName, $width, $height) {
         
         if (Storage::disk(Config::get('thumbr.disk'))->exists($fileWithPath)) {
             throw new \Exception('thumbr : Not able to locate the file.');
@@ -33,19 +33,28 @@ class Thumbr {
             throw new \Exception('thumbr : `width` parameter accepts only numbers.');
         }
         
+        if ($newFileName == null){
+            throw new \Exception('thumbr : `fileName` parameter accepts string. It will be great we can we specify extension.');
+        }
+        
         if (!is_numeric($height) || $height != true){
             throw new \Exception('thumbr : `height` parameter accepts either numbers or bool `true`.');
         }
     }
     
-    public static function CreateThumb($fileWithPath, $width, $height = true, $fileName = "") {
+    public static function CreateThumb($fileWithPath, $newFileName, $width, $height = true) {
         
         self::ValidateConfig();
-        self::ValidateInputs($fileWithPath, $width, $height);
+        self::ValidateInputs($fileWithPath, $newFileName, $width, $height);
         
         $destinationFolderName = Config::get('thumbr.folder_name');
         $disk = Config::get('thumbr.disk');
         $urlImage = Config::get('thumbr.is_image_url');
+        $finalPath = $destinationFolderName . '/' . $width . '/';
+        
+        if(Storage::disk($disk)->exists($finalPath . $newFileName)) {
+            return Storage::disk($disk)->url($finalPath . $newFileName);
+        }
         
         if($urlImage === false) {
             $file = Storage::disk($disk)->get($fileWithPath);
@@ -60,11 +69,9 @@ class Thumbr {
         imagejpeg($output);
         $imageContents = ob_get_clean();
         
-        
-        $finalPath = $destinationFolderName . '/' . $width . 'x' . $height . '/';
         Storage::disk($disk)->makeDirectory($finalPath);
-        Storage::disk($disk)->put($finalPath . $fileName, $imageContents);
-        return Storage::disk($disk)->url($finalPath . $fileName, $imageContents);
+        Storage::disk($disk)->put($finalPath . $newFileName, $imageContents);
+        return Storage::disk($disk)->url($finalPath . $newFileName);
     }
     
 }

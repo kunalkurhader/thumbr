@@ -24,6 +24,6 @@
 	},
 	"repositories": [{
         "type": "vcs",
-        "url": "https://gitlab.com/francis01/greetr"
+        "url": "https://github.com/kunalkurhader/thumbr"
 	}]
 }
