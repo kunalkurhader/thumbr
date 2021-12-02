@@ -40,8 +40,16 @@ use Kurhades\Thumbr\Thumbr;
 
 ```php
 //in blade file in case we are loading file from URL
+/*
+* Parameters : 
+* 1. source Image (with path or URL)
+* 2. thumb image name Image
+* 3. width of the image
+* 4. height of the image
+*/
+
 <img src="{{Thumbr::CreateThumb("https://DOMAINURL/image.jpg", "ocean23.jpeg", 100, 80)}}">
 
 //in blade file in case we are loading file from storage
-<img src="{{Thumbr::CreateThumb("file/path/ocean.jpeg", "ocean23.jpeg", 100, 80)}}">
+<img src="{{Thumbr::CreateThumb("folder/path/ocean.jpeg", "ocean23.jpeg", 100, 80)}}">
 ```
