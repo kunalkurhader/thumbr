@@ -9,6 +9,16 @@ Install thumbr with composer
 ```bash
 composer require kunalkurhader/thumbr
 ```
+Edit config/app.php file and add following line under `providers` array
+
+```bash
+Kurhades\Thumbr\ThumbrServiceProvider::class,
+```
+Now, after making changes in config/app.php, lets clear the config cache
+
+```bash
+php artisan config:cache
+```
 To copy the config file, lets publish with following command
 
 ```bash
@@ -16,7 +26,7 @@ php artisan vendor:publish --provider="Kurhades\Thumbr\ThumbrServiceProvider"
 ```
 
 ## Configuration options
-Configuration file will be located under config folder
+Configuration file will be located under config folder named `thumbr.php`
 
 ```php
 <?php
