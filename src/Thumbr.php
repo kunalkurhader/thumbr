@@ -62,12 +62,14 @@ class Thumbr {
             $file = file_get_contents($fileWithPath);
         }
         
+        ob_start();
         $image = imagecreatefromstring($file);
         $height = $height === true ? (imagesy($image) * $width / imagesx($image)) : $height;
         $output = imagecreatetruecolor($width, $height);
         imagecopyresampled($output, $image, 0, 0, 0, 0, $width, $height, imagesx($image), imagesy($image));
         imagejpeg($output);
         $imageContents = ob_get_clean();
+        ob_end_clean();
         
         Storage::disk($disk)->makeDirectory($finalPath);
         Storage::disk($disk)->put($finalPath . $newFileName, $imageContents);
