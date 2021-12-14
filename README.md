@@ -44,11 +44,6 @@ return [
 ## How to use?
 
 ```php
-//in controller
-use Kurhades\Thumbr\Thumbr;
-```
-
-```php
 //in blade file in case we are loading file from URL
 /*
 * Parameters : 
@@ -58,8 +53,8 @@ use Kurhades\Thumbr\Thumbr;
 * 4. height of the image
 */
 
-<img src="{{Thumbr::CreateThumb("https://DOMAINURL/image.jpg", "ocean23.jpeg", 100, 80)}}">
+<img src="{{\Kurhades\Thumbr\Thumbr::CreateThumb("https://DOMAINURL/image.jpg", "ocean23.jpeg", 100, 80)}}">
 
 //in blade file in case we are loading file from storage
-<img src="{{Thumbr::CreateThumb("folder/path/ocean.jpeg", "ocean23.jpeg", 100, 80)}}">
+<img src="{{\Kurhades\Thumbr\Thumbr::CreateThumb("folder/path/ocean.jpeg", "ocean23.jpeg", 100, 80)}}">
 ```
